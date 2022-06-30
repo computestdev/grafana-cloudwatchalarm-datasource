@@ -1,0 +1,28 @@
+{
+  "name": "computest-cloudwatch-alarm-datasource",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "author": "Joris van der Wel - Computest Services B.V. <jvanderwel@computest.nl>",
+  "description": "Data source for Amazon AWS CloudWatch Alarm status",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign",
+    "start": "npm run watch"
+  },
+  "devDependencies": {
+    "@grafana/data": "latest",
+    "@grafana/toolkit": "latest",
+    "@grafana/runtime": "latest",
+    "@grafana/ui": "latest",
+    "@types/lodash": "latest"
+  },
+  "resolutions": {
+    "rxjs": "7.3.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
