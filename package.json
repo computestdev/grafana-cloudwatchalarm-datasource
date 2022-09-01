@@ -1,5 +1,5 @@
 {
-  "name": "computest-cloudwatch-alarm-datasource",
+  "name": "computest-cloudwatchalarm-datasource",
   "license": "Apache-2.0",
   "version": "1.0.0",
   "author": "Joris van der Wel - Computest Services B.V. <jvanderwel@computest.nl>",

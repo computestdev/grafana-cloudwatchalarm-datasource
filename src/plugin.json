@@ -2,32 +2,42 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
   "type": "datasource",
   "name": "CloudWatch Alarm",
-  "id": "computest-cloudwatch-alarm-datasource",
+  "id": "computest-cloudwatchalarm-datasource",
   "metrics": true,
   "backend": true,
-  "executable": "gpx_computest-cloudwatch-alarm-datasource",
+  "category": "cloud",
+  "executable": "gpx_computest-cloudwatchalarm-datasource",
   "info": {
     "description": "Data source for Amazon AWS CloudWatch Alarm status",
     "author": {
       "name": "Joris van der Wel <jvanderwel@computest.nl>",
       "url": "https://github.com/Joris-van-der-Wel"
     },
-    "keywords": [],
+    "keywords": ["AWS", "CloudWatch", "datasource"],
     "logos": {
-      "small": "img/amazon-web-services.png",
-      "large": "img/amazon-web-services.png"
+      "small": "img/amazon-cloudwatch.svg",
+      "large": "img/amazon-cloudwatch.svg"
     },
     "links": [
       {
         "name": "Website",
-        "url": "https://github.com/computestdev/grafana-cloudwatch-alarm-datasource"
+        "url": "https://github.com/computestdev/grafana-cloudwatchalarm-datasource"
       },
       {
         "name": "License",
-        "url": "https://github.com/computestdev/grafana-cloudwatch-alarm-datasource/blob/master/LICENSE"
+        "url": "https://github.com/computestdev/grafana-cloudwatchalarm-datasource/blob/master/LICENSE"
       }
     ],
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "Add datasource",
+        "path": "img/screenshot-add-datasource.png"
+      },
+      {
+        "name": "Edit panel",
+        "path": "img/screenshot-edit-panel.png"
+      }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },

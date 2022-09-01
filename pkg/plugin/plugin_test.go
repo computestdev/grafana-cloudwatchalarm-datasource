@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/computestdev/grafana-cloudwatch-alarm-datasource/pkg/plugin"
+	"github.com/computestdev/grafana-cloudwatchalarm-datasource/pkg/plugin"
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 )
 
