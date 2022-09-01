@@ -13,10 +13,10 @@
     "start": "npm run watch"
   },
   "devDependencies": {
-    "@grafana/data": "latest",
-    "@grafana/toolkit": "latest",
-    "@grafana/runtime": "latest",
-    "@grafana/ui": "latest",
+    "@grafana/data": "^8.2.7",
+    "@grafana/runtime": "^8.2.7",
+    "@grafana/toolkit": "^8.2.7",
+    "@grafana/ui": "^8.2.7",
     "@types/lodash": "latest"
   },
   "resolutions": {

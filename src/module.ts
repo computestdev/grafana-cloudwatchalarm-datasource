@@ -5,5 +5,5 @@ import { QueryEditor } from './QueryEditor';
 import { CloudWatchAlarmQuery, CloudWatchAlarmJsonData } from './types';
 
 export const plugin = new DataSourcePlugin<DataSource, CloudWatchAlarmQuery, CloudWatchAlarmJsonData>(DataSource)
-  .setConfigEditor(ConfigEditor)
-  .setQueryEditor(QueryEditor);
+    .setConfigEditor(ConfigEditor)
+    .setQueryEditor(QueryEditor);

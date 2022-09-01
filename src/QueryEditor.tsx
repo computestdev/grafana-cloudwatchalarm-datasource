@@ -14,7 +14,7 @@ const regionOptions = [
         value: 'default',
         label: '',
     },
-    ...standardRegions.map(region => ({
+    ...standardRegions.map((region) => ({
         value: region,
         label: region,
     })),
@@ -76,10 +76,7 @@ export class QueryEditor extends PureComponent<Props> {
                         />
                     </InlineField>
 
-                    <InlineField
-                        label="Alarm name prefix"
-                        labelWidth={20}
-                    >
+                    <InlineField label="Alarm name prefix" labelWidth={20}>
                         <Input
                             aria-label="Alarm name prefix"
                             className="width-20"
@@ -89,21 +86,11 @@ export class QueryEditor extends PureComponent<Props> {
                     </InlineField>
                 </div>
                 <div>
-                    <InlineField
-                        label="Include OK"
-                        labelWidth={22}
-                    >
-                        <Switch
-                            value={includeOk || false}
-                            aria-label="Include OK"
-                            onChange={this.onIncludeOkChange}
-                        />
+                    <InlineField label="Include OK" labelWidth={22}>
+                        <Switch value={includeOk || false} aria-label="Include OK" onChange={this.onIncludeOkChange} />
                     </InlineField>
 
-                    <InlineField
-                        label="Include ALARM"
-                        labelWidth={22}
-                    >
+                    <InlineField label="Include ALARM" labelWidth={22}>
                         <Switch
                             value={includeAlarm || false}
                             aria-label="Include ALARM"
@@ -111,10 +98,7 @@ export class QueryEditor extends PureComponent<Props> {
                         />
                     </InlineField>
 
-                    <InlineField
-                        label="Include INSUFFICIENT_DATA"
-                        labelWidth={22}
-                    >
+                    <InlineField label="Include INSUFFICIENT_DATA" labelWidth={22}>
                         <Switch
                             value={includeInsufficientData || false}
                             aria-label="Include INSUFFICIENT_DATA"
