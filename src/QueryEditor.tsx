@@ -86,11 +86,11 @@ export class QueryEditor extends PureComponent<Props> {
                     </InlineField>
                 </div>
                 <div>
-                    <InlineField label="Include OK" labelWidth={22}>
+                    <InlineField label="Include OK" labelWidth={24}>
                         <Switch value={includeOk || false} aria-label="Include OK" onChange={this.onIncludeOkChange} />
                     </InlineField>
 
-                    <InlineField label="Include ALARM" labelWidth={22}>
+                    <InlineField label="Include ALARM" labelWidth={24}>
                         <Switch
                             value={includeAlarm || false}
                             aria-label="Include ALARM"
@@ -98,7 +98,7 @@ export class QueryEditor extends PureComponent<Props> {
                         />
                     </InlineField>
 
-                    <InlineField label="Include INSUFFICIENT_DATA" labelWidth={22}>
+                    <InlineField label="Include INSUFFICIENT_DATA" labelWidth={24}>
                         <Switch
                             value={includeInsufficientData || false}
                             aria-label="Include INSUFFICIENT_DATA"
