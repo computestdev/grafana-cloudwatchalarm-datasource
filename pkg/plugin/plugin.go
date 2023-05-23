@@ -36,24 +36,51 @@ type dataSourceJsonModel struct {
 
 type queryModel struct {
 	Region                  string `json:"region"`
+	IncludeTypeMetric       bool   `json:"includeTypeMetric"`
+	IncludeTypeComposite    bool   `json:"includeTypeComposite"`
 	IncludeOk               bool   `json:"includeOk"`
 	IncludeAlarm            bool   `json:"includeAlarm"`
 	IncludeInsufficientData bool   `json:"includeInsufficientData"`
 	AlarmNamePrefix         string `json:"alarmNamePrefix"`
 }
 
+func defaultQuery() queryModel {
+	return queryModel{
+		Region:                  "",
+		IncludeTypeComposite:    true,
+		IncludeTypeMetric:       true,
+		IncludeOk:               false,
+		IncludeAlarm:            true,
+		IncludeInsufficientData: true,
+		AlarmNamePrefix:         "",
+	}
+}
+
 func (query *queryModel) stateValues() []string {
 	stateValues := make([]string, 0)
 	if query.IncludeAlarm {
-		stateValues = append(stateValues, "ALARM")
+		stateValues = append(stateValues, cloudwatch.StateValueAlarm)
 	}
 	if query.IncludeInsufficientData {
-		stateValues = append(stateValues, "INSUFFICIENT_DATA")
+		stateValues = append(stateValues, cloudwatch.StateValueInsufficientData)
 	}
 	if query.IncludeOk {
-		stateValues = append(stateValues, "OK")
+		stateValues = append(stateValues, cloudwatch.StateValueOk)
 	}
 	return stateValues
+}
+
+func (query *queryModel) alarmTypes() []*string {
+	typeValues := make([]*string, 0)
+	if query.IncludeTypeMetric {
+		value := cloudwatch.AlarmTypeMetricAlarm
+		typeValues = append(typeValues, &value)
+	}
+	if query.IncludeTypeComposite {
+		value := cloudwatch.AlarmTypeCompositeAlarm
+		typeValues = append(typeValues, &value)
+	}
+	return typeValues
 }
 
 type CloudWatchAlarmDatasource struct {
@@ -101,7 +128,7 @@ func NewCloudWatchAlarmDatasource(sessions *awsds.SessionCache) datasource.Insta
 			authType:      parseAuthType(jsonData.AuthType),
 			assumeRoleARN: jsonData.AssumeRoleARN,
 			externalID:    jsonData.ExternalID,
-			endpoint  :    jsonData.Endpoint,
+			endpoint:      jsonData.Endpoint,
 			profile:       jsonData.Profile,
 			region:        jsonData.Region,
 
@@ -156,7 +183,7 @@ func (d *CloudWatchAlarmDatasource) QueryData(ctx context.Context, req *backend.
 func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginContext, dataQuery backend.DataQuery) backend.DataResponse {
 	response := backend.DataResponse{}
 
-	var query queryModel
+	query := defaultQuery()
 	err := json.Unmarshal(dataQuery.JSON, &query)
 	if err != nil {
 		response.Error = fmt.Errorf("%v: %w", "failed to unmarshal DataQuery", err)
@@ -179,6 +206,7 @@ func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginCon
 	for _, queryStateValue := range query.stateValues() {
 		alarmsParams := cloudwatch.DescribeAlarmsInput{
 			StateValue: &queryStateValue,
+			AlarmTypes: query.alarmTypes(),
 		}
 
 		if query.AlarmNamePrefix != "" {
@@ -190,6 +218,13 @@ func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginCon
 			if err != nil {
 				response.Error = fmt.Errorf("%v: %w", "failed to call cloudwatch:DescribeAlarms", err)
 				return response
+			}
+
+			for _, metricAlarm := range alarmsResponse.CompositeAlarms {
+				alarmName = append(alarmName, metricAlarm.AlarmName)
+				stateUpdatedTimestamp = append(stateUpdatedTimestamp, metricAlarm.StateUpdatedTimestamp)
+				stateValue = append(stateValue, metricAlarm.StateValue)
+				stateReason = append(stateReason, metricAlarm.StateReason)
 			}
 
 			for _, metricAlarm := range alarmsResponse.MetricAlarms {
