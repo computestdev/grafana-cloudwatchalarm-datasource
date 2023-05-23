@@ -31,6 +31,7 @@ type dataSourceJsonModel struct {
 	ExternalID    string `json:"externalId"`
 	Profile       string `json:"profile"`
 	Region        string `json:"defaultRegion"`
+	Endpoint      string `json:"endpoint"`
 }
 
 type queryModel struct {
@@ -59,6 +60,7 @@ type CloudWatchAlarmDatasource struct {
 	authType      awsds.AuthType
 	assumeRoleARN string
 	externalID    string
+	endpoint      string
 	profile       string
 	region        string
 
@@ -99,6 +101,7 @@ func NewCloudWatchAlarmDatasource(sessions *awsds.SessionCache) datasource.Insta
 			authType:      parseAuthType(jsonData.AuthType),
 			assumeRoleARN: jsonData.AssumeRoleARN,
 			externalID:    jsonData.ExternalID,
+			endpoint  :    jsonData.Endpoint,
 			profile:       jsonData.Profile,
 			region:        jsonData.Region,
 
@@ -124,6 +127,7 @@ func (d *CloudWatchAlarmDatasource) newSession(region string) (*session.Session,
 			AuthType:      d.authType,
 			AssumeRoleARN: d.assumeRoleARN,
 			ExternalID:    d.externalID,
+			Endpoint:      d.endpoint,
 			DefaultRegion: d.region,
 			AccessKey:     d.accessKey,
 			SecretKey:     d.secretKey,

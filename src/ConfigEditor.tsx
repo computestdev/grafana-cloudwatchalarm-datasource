@@ -12,5 +12,5 @@ export const ConfigEditor: FC<Props> = (props) => {
     // todo: add warnings about invalid `authType`, just like:
     //       https://github.com/grafana/grafana/blob/23956557d8c6a119b7de5be5c42024e29634d002/public/app/plugins/datasource/cloudwatch/components/ConfigEditor.tsx
 
-    return <ConnectionConfig options={options} onOptionsChange={onOptionsChange} skipEndpoint />;
+    return <ConnectionConfig options={options} onOptionsChange={onOptionsChange} />;
 };
