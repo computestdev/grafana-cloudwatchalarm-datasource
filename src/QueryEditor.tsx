@@ -20,10 +20,36 @@ const regionOptions = [
     })),
 ];
 
+const alarmTypeOptions = [
+    {
+        value: 'all',
+        label: 'All',
+    },
+    {
+        value: 'metric',
+        label: 'Metric',
+    },
+    {
+        value: 'composite',
+        label: 'Composite',
+    },
+];
+
 export class QueryEditor extends PureComponent<Props> {
     onRegionChange = (value: SelectableValue<string>) => {
         const { onChange, query, onRunQuery } = this.props;
         onChange({ ...query, region: value.value });
+        onRunQuery();
+    };
+
+    onAlarmTypeChange = ({value}: SelectableValue<string>) => {
+        const { onChange, query, onRunQuery } = this.props;
+
+        onChange({
+            ...query,
+            includeTypeMetric: value === 'all' || value === 'metric',
+            includeTypeComposite: value === 'all' || value === 'composite',
+        });
         onRunQuery();
     };
 
@@ -53,7 +79,14 @@ export class QueryEditor extends PureComponent<Props> {
 
     render() {
         const query = defaults(this.props.query, defaultQuery);
-        const { region, includeOk, includeAlarm, includeInsufficientData, alarmNamePrefix } = query;
+        const { region, includeTypeMetric, includeTypeComposite, includeOk, includeAlarm, includeInsufficientData, alarmNamePrefix } = query;
+        let alarmType = 'all';
+        if (includeTypeMetric && !includeTypeComposite) {
+            alarmType = 'metric';
+        }
+        else if (!includeTypeMetric && includeTypeComposite) {
+            alarmType = 'composite';
+        }
 
         return (
             <div className="gf-form">
@@ -82,6 +115,23 @@ export class QueryEditor extends PureComponent<Props> {
                             className="width-20"
                             value={alarmNamePrefix || ''}
                             onChange={this.onAlarmNamePrefixChange}
+                        />
+                    </InlineField>
+
+                    <InlineField
+                        label="Alarm Type"
+                        labelWidth={20}
+                        tooltip="Specify which type of alarms to display (metric and/or composite)."
+                    >
+                        <Select
+                            aria-label="Alarm Type"
+                            className="width-20"
+                            value={alarmType}
+                            options={alarmTypeOptions}
+                            defaultValue="all"
+                            allowCustomValue={false}
+                            onChange={this.onAlarmTypeChange}
+                            menuShouldPortal={true}
                         />
                     </InlineField>
                 </div>

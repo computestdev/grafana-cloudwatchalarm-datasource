@@ -3,6 +3,8 @@ import { AwsAuthDataSourceSecureJsonData, AwsAuthDataSourceJsonData } from '@gra
 
 export interface CloudWatchAlarmQuery extends DataQuery {
     region?: string;
+    includeTypeMetric?: boolean;
+    includeTypeComposite?: boolean;
     includeOk?: boolean;
     includeAlarm?: boolean;
     includeInsufficientData?: boolean;
@@ -11,6 +13,8 @@ export interface CloudWatchAlarmQuery extends DataQuery {
 
 export const defaultQuery: Partial<CloudWatchAlarmQuery> = {
     region: 'default',
+    includeTypeMetric: true,
+    includeTypeComposite: true,
     includeOk: true,
     includeAlarm: true,
     includeInsufficientData: true,
