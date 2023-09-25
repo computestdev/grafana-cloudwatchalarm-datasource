@@ -11,6 +11,8 @@ export interface CloudWatchAlarmQuery extends DataQuery {
     alarmNamePrefix?: string;
 }
 
+export const TEMPLATED_QUERY_KEYS: Array<keyof CloudWatchAlarmQuery> = ['region', 'alarmNamePrefix'];
+
 export const defaultQuery: Partial<CloudWatchAlarmQuery> = {
     region: 'default',
     includeTypeMetric: true,
