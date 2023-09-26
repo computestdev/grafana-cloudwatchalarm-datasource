@@ -117,7 +117,7 @@ func parseAuthType(authType string) awsds.AuthType {
 }
 
 func NewCloudWatchAlarmDatasource(sessions *awsds.SessionCache) datasource.InstanceFactoryFunc {
-	return func(settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
+	return func(ctx context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
 		jsonData := dataSourceJsonModel{}
 		err := json.Unmarshal(settings.JSONData, &jsonData)
 		if err != nil {

@@ -11,6 +11,7 @@ export interface CloudWatchAlarmQuery extends DataQuery {
     alarmNamePrefix?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/array-type
 export const TEMPLATED_QUERY_KEYS: Array<keyof CloudWatchAlarmQuery> = ['region', 'alarmNamePrefix'];
 
 export const defaultQuery: Partial<CloudWatchAlarmQuery> = {
