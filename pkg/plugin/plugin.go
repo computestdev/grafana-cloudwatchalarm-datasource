@@ -199,6 +199,7 @@ func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginCon
 	cloudwatchApi := cloudwatch.New(awsSession)
 
 	alarmName := make([]*string, 0)
+	alarmDescription := make([]*string, 0)
 	stateUpdatedTimestamp := make([]*time.Time, 0)
 	stateValue := make([]*string, 0)
 	stateReason := make([]*string, 0)
@@ -222,6 +223,7 @@ func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginCon
 
 			for _, metricAlarm := range alarmsResponse.CompositeAlarms {
 				alarmName = append(alarmName, metricAlarm.AlarmName)
+				alarmDescription = append(alarmDescription, metricAlarm.AlarmDescription)
 				stateUpdatedTimestamp = append(stateUpdatedTimestamp, metricAlarm.StateUpdatedTimestamp)
 				stateValue = append(stateValue, metricAlarm.StateValue)
 				stateReason = append(stateReason, metricAlarm.StateReason)
@@ -229,6 +231,7 @@ func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginCon
 
 			for _, metricAlarm := range alarmsResponse.MetricAlarms {
 				alarmName = append(alarmName, metricAlarm.AlarmName)
+				alarmDescription = append(alarmDescription, metricAlarm.AlarmDescription)
 				stateUpdatedTimestamp = append(stateUpdatedTimestamp, metricAlarm.StateUpdatedTimestamp)
 				stateValue = append(stateValue, metricAlarm.StateValue)
 				stateReason = append(stateReason, metricAlarm.StateReason)
@@ -249,6 +252,7 @@ func (d *CloudWatchAlarmDatasource) query(_ context.Context, _ backend.PluginCon
 
 	frame.Fields = append(frame.Fields,
 		data.NewField("AlarmName", nil, alarmName),
+		data.NewField("AlarmDescription", nil, alarmDescription),
 		data.NewField("StateUpdatedTimestamp", nil, stateUpdatedTimestamp),
 		data.NewField("StateValue", nil, stateValue),
 		data.NewField("StateReason", nil, stateReason),
