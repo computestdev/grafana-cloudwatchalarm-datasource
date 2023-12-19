@@ -1,5 +1,10 @@
 # Change Log
 
+## v2.0.0
+* Update dependencies
+* Add AlarmDescription field
+  (This new field can be hidden by adding an "Hide in table" override to your panel)
+
 ## v1.2.0
 * Update dependencies
 * Support for template variables (within the alarm name prefix and region)
