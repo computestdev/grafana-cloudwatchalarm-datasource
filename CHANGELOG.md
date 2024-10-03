@@ -1,5 +1,9 @@
 # Change Log
 
+## v2.0.1
+* Update dependencies
+* Fix inconsistency between the filter GUI and what is actually being queried, after having just added a new panel.
+
 ## v2.0.0
 * Update dependencies
 * Add AlarmDescription field
