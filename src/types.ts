@@ -18,7 +18,7 @@ export const defaultQuery: Partial<CloudWatchAlarmQuery> = {
     region: 'default',
     includeTypeMetric: true,
     includeTypeComposite: true,
-    includeOk: true,
+    includeOk: false,
     includeAlarm: true,
     includeInsufficientData: true,
     alarmNamePrefix: '',

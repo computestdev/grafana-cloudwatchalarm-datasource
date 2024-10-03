@@ -46,7 +46,7 @@ type queryModel struct {
 
 func defaultQuery() queryModel {
 	return queryModel{
-		Region:                  "",
+		Region:                  "default",
 		IncludeTypeComposite:    true,
 		IncludeTypeMetric:       true,
 		IncludeOk:               false,
